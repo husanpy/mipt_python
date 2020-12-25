@@ -1,3 +1,4 @@
+#  You can experiment here, it won’t be checked
 from math import *
 import turtle
 window = turtle.Screen()
@@ -134,4 +135,111 @@ def draw_smile(face_color, eye_color):
     turtle.pensize(20)
     turtle.pencolor('red')
     turtle.circle(100, -180)
+
+
+def turtle_star_odd(distance, num_points):
+    turtle.penup()
+    turtle.goto(0, distance)
+    turtle.right(90)
+    turtle.pendown()
+    angle = (num_points // 2) * 360 / num_points
+    turtle.color('red', 'yellow')
+    turtle.begin_fill()
+    for _ in range(num_points):
+        turtle.forward(distance)
+        turtle.left(angle)
+    turtle.end_fill()
+
+
+def turtle_star_even(distance, num_points):
+    turtle.penup()
+    turtle.goto(0, distance)
+    turtle.right(90)
+    turtle.pendown()
+    inner_angle = 360 / num_points
+    turtle.color('red', 'yellow')
+    turtle.begin_fill()
+    for _ in range(num_points):
+        turtle.forward(distance)
+        turtle.left(180 - inner_angle)
+    turtle.end_fill()
+
+
+def turtle_star_6(side_length):
+    X = []
+    Y = []
+    turtle.left(30)
+    angle = 60
+    turtle.penup()
+    for _ in range(6):
+        turtle.forward(side_length)
+        X.append(turtle.pos()[0])
+        Y.append(turtle.pos()[1])
+        turtle.left(angle)
+    turtle.pendown()
+    turtle.setheading(0)
+    turtle.penup()
+    turtle.goto(0, max(Y))
+    turtle.right(180 - angle)
+    turtle.pendown()
+    line_size = max(X) - min(X)
+    turtle.color('red', 'yellow')
+    turtle.begin_fill()
+    for _ in range(3):
+        turtle.forward(line_size)
+        turtle.left(180 - angle)
+    turtle.end_fill()
+    turtle.setheading(0)
+    turtle.penup()
+    turtle.goto(0, 0)
+    turtle.left(angle)
+    turtle.pendown()
+    turtle.begin_fill()
+    for _ in range(3):
+        turtle.forward(line_size)
+        turtle.left(180 - angle)
+    turtle.end_fill()
+
+
+def turtle_inner_10(outer_radius):
+    t = outer_radius / (5 ** 0.5 + 1)
+    Y = []
+    angle = 36
+    turtle.penup()
+    for i in range(10):
+        turtle.forward(t)
+        Y.append(turtle.pos()[1])
+        turtle.left(angle)
+    line_size = max(Y)
+    turtle.goto(0, line_size)
+    turtle.pendown()
+    turtle.right(90)
+    turtle.color('red', 'yellow')
+    turtle.begin_fill()
+    for i in range(5):
+        turtle.forward(line_size)
+        turtle.left(180 - angle)
+    turtle.end_fill()
+    turtle.penup()
+    turtle.goto(t, 0)
+    turtle.setheading(90)
+    turtle.pendown()
+    turtle.begin_fill()
+    for i in range(5):
+        turtle.forward(line_size)
+        turtle.left(180 - angle)
+    turtle.end_fill()
+
+
+def draw_star(distance, num_points):
+    if num_points % 2 != 0:
+        turtle_star_odd(distance, num_points)
+    else:
+        if num_points == 10:
+            turtle_inner_10(distance)
+        elif num_points == 6:
+            turtle_star_6(distance)
+        else:
+            turtle_star_even(distance, num_points)
+
 
