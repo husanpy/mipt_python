@@ -26,6 +26,19 @@ def merge(a: list, b: list):
     return c
 
 
+def merge_heap(a: list):
+    q = []
+    heapq.heapify(q)
+    for i in range(len(a)):
+        heapq.heappush(q, [a[i]])
+
+    while len(q) > 1:
+        l, r = heapq.heappop(q), heapq.heappop(q)
+        heapq.heappush(q, merge(l, r))
+
+    return heapq.heappop(q)
+
+
 def merge_sort(a):
     """mother function sorting array A with usage of additional memory"""
     if len(a) > 1:
